@@ -19,6 +19,8 @@ from django.urls import include
 from django.views.generic.base import TemplateView
 from Lawyer import views as myview
 from django.views.generic.base import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,14 +28,14 @@ urlpatterns = [
     path('read/', myview.read),
     path('delete/', myview.delete),
     path('update/', myview.update),
-
-
     path('adduser/', myview.signup),
-    path('', RedirectView.as_view(pattern_name='SignupLawyer', permanent=False)),
+    path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signin', TemplateView.as_view(template_name='SignIn.html'),name='login'),
     path('signup', TemplateView.as_view(template_name='SignUp.html'),name='signup'),
-    path('home', TemplateView.as_view(template_name='index.html'),name='home'),
+    path('home', TemplateView.as_view(template_name='home.html'),name='home'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-]
+if settings.DEBUG:
+    urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

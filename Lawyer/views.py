@@ -19,7 +19,7 @@ def signup(request):
 	YearAdmitted = request.POST.get('YearAdmitted', datetime.datetime.now())
 	HCRNo = request.POST.get('hcr_number')
 
-	obj  =  Lawyer(username=Email,password=Password,state=State,city=City,buisness_address=BusinessAddress,phone_number=PhoneNumber,liscence_number=LicenseIDNumber,year_admitted=YearAdmitted,hcr_number=HCRNo)
+	obj  =  Lawyer(username=Email,email=Email,password=Password,state=State,city=City,buisness_address=BusinessAddress,phone_number=PhoneNumber,liscence_number=LicenseIDNumber,year_admitted=YearAdmitted,hcr_number=HCRNo)
 	obj.save()
 	login(request,obj)
 	return JsonResponse({"HAHA":"SUCCESS"})
